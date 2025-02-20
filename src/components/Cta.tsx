@@ -1,7 +1,7 @@
 
 const Cta = () => {
     return (
-        <section className="mt-[150px] mb-[50px]">
+        <section className="mt-[150px] mb-[50px] max-xs:mt-[50px]">
             <div className='container-xl'>
                 <div className="relative">
                     <div className="flex flex-col text-center items-center pb-[60px] ">

@@ -1,14 +1,20 @@
 
-import React from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
+import { useAuthStore } from '@/store';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { LoginUser } from '@/utils/api/auth';
+import { toast } from 'react-toastify';
+import { AxiosError, } from 'axios';
 // Định nghĩa kiểu dữ liệu cho form
 interface LoginFormInputs {
     email: string;
     password: string;
 }
 
-const Login: React.FC = () => {
+const Login = () => {
+    const login = useAuthStore((state) => state.login);
+    const navigate = useNavigate();
     // Sử dụng hook từ react-hook-form
     const {
         register,
@@ -16,9 +22,40 @@ const Login: React.FC = () => {
         formState: { errors },
     } = useForm<LoginFormInputs>();
 
+
+    // Sử dụng TanStack Query để gọi API
+    const { mutate } = useMutation({
+        mutationFn: (data: LoginFormInputs) => {
+            return LoginUser(data.email, data.password)
+        },
+        onSuccess: (data) => {
+            if (data.isSuccess && data.result) {
+                const { accessToken, refreshToken, } = data.result;
+                login({ accessToken, refreshToken, isLogin: true });
+                navigate('/user-info')
+            } else {
+                alert('Login failed: ' + (data.errorMessages?.[0] || 'Unknown error'));
+            }
+        },
+        onError: (error) => {
+            // console.error('Login failed:', error);
+            if (error instanceof AxiosError) {
+                const errorData = error.response?.data; // Lấy dữ liệu lỗi từ server
+                console.error('Error response data:', errorData);
+                // Hiển thị lỗi cho người dùng
+                toast.error(errorData || 'An unexpected error occurred. Please try again.');
+
+            } else {
+                console.error('An unknown error occurred:', error);
+                toast.error('An unknown error occurred. Please try again.');
+            }
+        },
+    });
+
+
     // Xử lý submit
     const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-        console.log('Submitted Data:', data);
+        mutate(data);
     };
 
     return (
@@ -56,7 +93,13 @@ const Login: React.FC = () => {
                                     Password
                                 </label>
                                 <input
-                                    {...register('password', { required: 'Password is required' })}
+                                    {...register('password', {
+                                        required: 'Password is required',
+                                        minLength: {
+                                            value: 6,
+                                            message: 'Password must be at least 6 characters long',
+                                        }
+                                    })}
                                     className="text-[#333] bg-transparent border-0 border-b border-b-black h-auto mb-0 pb-[5px] text-[14px] leading-[150%] w-full focus:outline-none"
                                     id="password"
                                     type="password"
@@ -67,7 +110,6 @@ const Login: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Submit Button */}
                         <div className="mt-[25px] group">
                             <input
                                 className="flex bg-color-1 w-full text-[#fff] rounded-[50px] justify-center no-underline py-[10px] px-[20px] items-center cursor-pointer group-hover:bg-[#000] duration-300"
@@ -76,12 +118,11 @@ const Login: React.FC = () => {
                             />
                         </div>
 
-                        {/* Link */}
                         <div className="flex justify-between mt-[12px] group">
                             <span>Don't have an account?</span>
-                            <a href="/sign-up" className="underline cursor-pointer group-hover:no-underline">
+                            <NavLink to="/sign-up" className="underline cursor-pointer group-hover:no-underline">
                                 Sign Up
-                            </a>
+                            </NavLink>
                         </div>
                     </form>
                 </div>

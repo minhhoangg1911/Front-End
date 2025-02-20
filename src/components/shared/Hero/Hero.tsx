@@ -2,8 +2,8 @@ import './style.css'
 const Hero = () => {
     return (
         <>
-            <section className="hero mb-[150px]">
-                <div className="max-sm:min-h-[460px] max-sm:max-h-[460px] max-sm:rounded-[10px] max-sm: justify-end hero-wrapper ">
+            <section className="hero mb-[150px] max-xs:mb-[50px]">
+                <div className="max-sm:min-h-[460px] max-sm:max-h-[460px] max-xs:min-h-[400px] max-sm:rounded-[10px] max-sm: justify-end hero-wrapper ">
                     <div className='hero-top '>
                         <div className='max-sm:hidden hero-social-data'>
                             <div className='hero-social-title text-white font-semibold'>Join our community</div>

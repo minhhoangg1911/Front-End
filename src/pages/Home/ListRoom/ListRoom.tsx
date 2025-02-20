@@ -1,6 +1,32 @@
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import RoomItem from "./RoomItem"
+import { fetchRooms } from '@/utils/api/hotel';
+
+interface Room {
+    id: number;
+    roomName: string;
+    image: string;
+    areaSqFt: number;
+    bed: number;
+    capacity: number;
+    price: number;
+}
+
 
 const ListRoom = () => {
+    const [limit,] = useState<number>(4);  // Giá trị mặc định là 6
+    const [offset,] = useState<number>(0); // Giá trị mặc định là 0
+
+    // const { data } = useQuery<Room[]>({
+    //     queryKey: ['rooms', limit, offset],
+    //     queryFn: () => fetchRooms(limit, offset),
+    // });
+    const listRooms = useQuery<Room[]>({
+        queryKey: ['rooms', limit, offset],
+        queryFn: () => fetchRooms(limit, offset),
+    });
+
     return (
         <div className="list-room container-xl ">
             <div className="sub-heading flex justify-between items-end gap-[60px] mb-5">
@@ -13,7 +39,9 @@ const ListRoom = () => {
                 </div>
                 <div className="flex group  mt-[40px] max-md:hidden">
                     <button className="flex justify-center items-center text-black bg-transparent border border-black rounded-full px-5 py-2.5 text-sm leading-[1.2] no-underline transition-colors duration-300">
-                        <span>View All Rooms</span>
+                        <span>
+                            <a href='/rooms'>View All Rooms</a>
+                        </span>
                     </button>
                     <div className="flex cursor-pointer justify-center items-center border border-[rgba(0,0,0,0.1)] rounded-full w-[37px] h-[37px] relative overflow-hidden group-hover:border-[rgba(0,0,0)]">
                         <img src="https://cdn.prod.website-files.com/660feff9e6770765774f4a4f/66599c3a19bedbe57ff6639f_button-arrow.svg" alt="Arrow" className="w-4 h-4 arrow transition-transform duration-300 text-white " />
@@ -21,10 +49,12 @@ const ListRoom = () => {
                     </div>
                 </div>
             </div>
-            <RoomItem />
+            <RoomItem rooms={listRooms?.data || []} />
             <div className="hidden  group  mt-[40px] max-md:justify-end  max-md:flex">
                 <button className="flex justify-center items-center text-black bg-transparent border border-black rounded-full px-5 py-2.5 text-sm leading-[1.2] no-underline transition-colors duration-300">
-                    <span>View All Rooms</span>
+                    <span>
+                        <a href="/rooms">View All Rooms</a>
+                    </span>
                 </button>
                 <div className="flex cursor-pointer justify-center items-center border border-[rgba(0,0,0,0.1)] rounded-full w-[37px] h-[37px] relative overflow-hidden group-hover:border-[rgba(0,0,0)]">
                     <img src="https://cdn.prod.website-files.com/660feff9e6770765774f4a4f/66599c3a19bedbe57ff6639f_button-arrow.svg" alt="Arrow" className="w-4 h-4 arrow transition-transform duration-300 text-white " />

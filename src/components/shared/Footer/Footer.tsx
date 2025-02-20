@@ -2,13 +2,13 @@ const Footer = () => {
     return (
         <section className="bg-[#000]">
             <div className="container-xl">
-                <div className="flex justify-center pb-[50px] pt-[50px] border-b border-[rgba(255,255,255,.15)]">
+                <div className="flex justify-center pb-[50px] pt-[50px] max-xs:p-[30px] border-b border-[rgba(255,255,255,.15)]">
                     <a>
                         <img src='https://cdn.prod.website-files.com/660feff9e6770765774f4a4f/665973513ca752f4e77d6ebe_ft-brand.svg' />
                     </a>
                 </div>
                 <div className="flex items-stretch justify-between max-lg:flex-col">
-                    <div className="w-full max-w-[34%] pt-[60px] pb-[60px] max-lg:max-w-[60%] max-sm:max-w-[100%]">
+                    <div className="w-full max-w-[34%] pt-[60px] pb-[60px] max-xs:p-[20px] max-lg:max-w-[60%] max-sm:max-w-[100%]">
                         <div className="flex gap-[6px] text-[#999] uppercase items-center text-[14px] leading-[120%]">
                             <img src='https://cdn.prod.website-files.com/660feff9e6770765774f4a4f/66597524ecf21bd82abdbd9f_ft-icon.svg' />
                             <div>Join Our Newsletter</div>
@@ -27,19 +27,19 @@ const Footer = () => {
                             <div className="flex flex-col items-start ">
                                 <div className="text-[#fff] uppercase mb-2 text-[14px] leading-[150%]">Pages</div>
                                 <div className="group">
-                                    <a className="flex text-[14px] text-[#999] py-[2px] leading-[150%] no-underline group-hover:text-color-1 transition-colors duration-300" href="#">About us</a>
+                                    <a className="flex text-[14px] text-[#999] py-[2px] leading-[150%] no-underline group-hover:text-color-1 transition-colors duration-300" href="/about">About us</a>
                                 </div>
                                 <div className="group">
-                                    <a className="flex  text-[#999] py-[2px] leading-[150%] no-underline group-hover:text-color-1 transition-colors duration-300" href="#">Rooms</a>
+                                    <a className="flex  text-[#999] py-[2px] leading-[150%] no-underline group-hover:text-color-1 transition-colors duration-300" href="/rooms">Rooms</a>
                                 </div>
                                 <div className="group">
-                                    <a className="flex text-[14px] text-[#999] py-[2px] leading-[150%] no-underline group-hover:text-color-1 transition-colors duration-300" href="#">Blogs</a>
+                                    <a className="flex text-[14px] text-[#999] py-[2px] leading-[150%] no-underline group-hover:text-color-1 transition-colors duration-300" href="/blogs">Blogs</a>
                                 </div>
                                 <div className="group">
-                                    <a className="flex text-[14px] text-[#999] py-[2px] leading-[150%] no-underline group-hover:text-color-1 transition-colors duration-300" href="#">Reviews</a>
+                                    <a className="flex text-[14px] text-[#999] py-[2px] leading-[150%] no-underline group-hover:text-color-1 transition-colors duration-300" href="/reviews">Reviews</a>
                                 </div>
                                 <div className="group">
-                                    <a className="flex text-[14px] text-[#999] py-[2px] leading-[150%] no-underline group-hover:text-color-1 transition-colors duration-300" href="#">FAQ</a>
+                                    <a className="flex text-[14px] text-[#999] py-[2px] leading-[150%] no-underline group-hover:text-color-1 transition-colors duration-300" href="/faq">FAQ</a>
                                 </div>
                             </div>
                             <div className="flex flex-col items-start ">

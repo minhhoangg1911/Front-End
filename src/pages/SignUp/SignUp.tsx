@@ -1,4 +1,8 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { SignUpUser } from '@/utils/api/auth';
+// import axios from 'axios';
 
 interface SignInFormInputs {
     email: string;
@@ -8,10 +12,61 @@ interface SignInFormInputs {
 
 const SignUp = () => {
 
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm<SignInFormInputs>();
+    // Hàm gọi API đăng nhập
+    // const registerUser = async (email: string, password: string, name: string) => {
+    //     const response = await axios.post('https://localhost:7095/api/Auth/register', {
+    //         email: email,
+    //         name: name,
+    //         password: password,
+    //     });
+    //     return response.data; // Trả về dữ liệu từ API
+    // };
+
+    // const mutation = useMutation({
+    //     mutationFn: (data: SignInFormInputs) => {
+    //         return registerUser(data.email, data.password, data.name)
+    //     },
+    //     onSuccess: (data) => {
+    //         console.log('Registration  successful:', data);
+    //         if (data) {
+    //             navigate('/login')
+    //         } else {
+    //             alert('Register failed: ' + (data.errorMessages?.[0] || 'Unknown error'));
+    //         }
+    //     },
+    //     onError: (error) => {
+    //         console.error('Register failed:', error);
+
+    //     },
+    // });
+
+
+    const { mutate } = useMutation({
+        mutationFn: (data: SignInFormInputs) => {
+            return SignUpUser(data.email, data.name, data.password)
+        },
+        onSuccess: (data) => {
+            console.log('Login successful:', data);
+            if (data) {
+                navigate('/login')
+            } else {
+                alert('Register failed: ' + (data.errorMessages?.[0] || 'Unknown error'));
+            }
+        },
+        onError: (error) => {
+            console.error('Register failed:', error);
+        },
+    })
+
+
     const onSubmit: SubmitHandler<SignInFormInputs> = (data) => {
         console.log('Submitted Data:', data);
+        // mutation.mutate(data)
+        mutate(data);
     }
+
     return (
         <div className="container-xl">
             <div className="py-[60px]">
@@ -53,7 +108,11 @@ const SignUp = () => {
                                 <label className="mb-[2px] flex text-[14px] font-normal leading-[150%]" htmlFor="">Password</label>
                                 <input
                                     {...register('password', {
-                                        required: 'Password is required'
+                                        required: 'Password is required',
+                                        minLength: {
+                                            value: 6,
+                                            message: 'Password must be at least 6 characters long',
+                                        }
                                     })}
                                     className="text-[#333] bg-transparent border-0 border-b border-b-black h-auto mb-0 pb-[5px] text-[14px] leading-[150%] w-full focus:outline-none" />
                                 {errors.password && (
@@ -75,11 +134,11 @@ const SignUp = () => {
                             </label>
                         </div>
                         <div className="mt-[25px] group">
-                            <input className="flex bg-color-1 w-full text-[#fff] rounded-[50px] justify-center no-underline py-[10px] px-[20px] items-center cursor-pointer group-hover:bg-[#000] duration-300" type='submit' value='Log In' />
+                            <input className="flex bg-color-1 w-full text-[#fff] rounded-[50px] justify-center no-underline py-[10px] px-[20px] items-center cursor-pointer group-hover:bg-[#000] duration-300" type='submit' value='Register' />
                         </div>
                         <div className="flex justify-between mt-[12px] group">
                             <span>Don't have an account?</span>
-                            <a href='/login' className="underline cursor-pointer group-hover:no-underline">Log In</a>
+                            <NavLink to='/login' className="underline cursor-pointer group-hover:no-underline">Log In</NavLink>
                         </div>
                     </form>
                 </div>

@@ -1,6 +1,6 @@
 const Instagram = () => {
     return (
-        <section className="mt-[150px]">
+        <section className="mt-[150px] max-xs:mt-[50px]">
 
             <div className="logos relative overflow-hidden  whitespace-nowrap flex gap-[5px]">
 

@@ -1,7 +1,7 @@
 
 const Team = () => {
     return (
-        <div className="mt-[150px] container-xl">
+        <div className="mt-[150px] container-xl max-xs:mt-[50px]">
             <div>
                 <div className="sub-heading flex justify-between items-end gap-[60px] mb-5">
                     <div>

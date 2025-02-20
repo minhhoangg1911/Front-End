@@ -1,6 +1,62 @@
+import { useNavigate, useParams } from "react-router-dom";
 import SimilarRoom from "./SimilarRoom"
+import { useHotelQuery } from "@/utils/api/query/useRoom";
+import { jwtDecode } from 'jwt-decode';
+import { useShoppingCartInItemQuery, useUpdateShoppingCart } from "@/utils/api/query/useShoppingCart";
+import { useAuthStore, useShoppingCartStore } from "@/store";
+import { toast } from "react-toastify";
 
 const RoomDetail = () => {
+    const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
+    const { updateQuantity } = useShoppingCartStore.getState();
+    const { setIsOpen } = useAuthStore();
+    // const addToCart = useCartStore((state) => state.addToCart);
+    const accessToken = localStorage.getItem('accessToken') ?? '';
+    let user: any = null;
+    try {
+        if (accessToken) {
+            user = jwtDecode(accessToken);
+        }
+    } catch (error) {
+        localStorage.removeItem('accessToken');
+        console.log(error);
+    }
+    const hotelId = parseInt(id || '0', 10);
+
+    // Gọi query với id
+    const { data } = useHotelQuery(hotelId);
+
+
+    const { data: shoppingCartInItemData } = useShoppingCartInItemQuery(id as any)
+
+
+    const { mutate: updateShoppingCart } = useUpdateShoppingCart();
+
+
+    const handleAddToCart = async (event: any) => {
+        event.preventDefault();
+
+        if (!user?.userId) {
+            navigate("/login");
+            return;
+        }
+        // setIsAddingToCart(true);
+        const payload = {
+            userId: user.userId,
+            roomId: parseInt(id || '0', 10),
+            updateQuantityBy: 1,
+        };
+
+        updateShoppingCart(payload as any);
+        updateQuantity(payload.roomId, shoppingCartInItemData?.quantity, { roomId: payload.roomId, name: data?.roomName, quantity: shoppingCartInItemData?.quantity || 1, price: data?.price })
+        toast.success("Đã thêm vào giỏ hàng")
+        setIsOpen(true)
+    }
+
+
+
+
     return (
         <div className="container-xl">
             <div className="mb-[100px]">
@@ -9,7 +65,7 @@ const RoomDetail = () => {
                         <img src='https://cdn.prod.website-files.com/660feff9e6770765774f4a4f/6659b299906d5895eeb0229b_ic-subtitle.svg' />
                         <div className="font-Switzer">Explore Room</div>
                     </div>
-                    <h1 className="text-black text-[48px] font-Switzer font-normal max-sm:text-[30px] ">Tranquil Oasis Retreat
+                    <h1 className="text-black text-[48px] font-Switzer font-normal max-sm:text-[30px] ">{data?.roomName}
                     </h1>
                 </div>
                 <div className="flex gap-x-[50px] justify-between items-start max-lg:flex-col">
@@ -104,15 +160,15 @@ const RoomDetail = () => {
                                 <div className="grid gap-[25px] grid-rows-auto grid-cols-2 auto-cols-[1fr]">
                                     <div className="flex gap-x-2 items-center leading-[150%] text-[14px]">
                                         <img src='https://cdn.prod.website-files.com/660feff9e6770765774f4a4f/665d8362f53f09871d3569a0_ic-sq.svg' />
-                                        <div className="text-[14px]">400 sq ft</div>
+                                        <div className="text-[14px]">{data?.areaSqFt} sq ft</div>
                                     </div>
                                     <div className="flex gap-x-2 items-center leading-[150%] text-[14px]">
                                         <img src='https://cdn.prod.website-files.com/660feff9e6770765774f4a4f/665d8362f53f09871d3569a0_ic-sq.svg' />
-                                        <div className="text-[14px]">1-3 People</div>
+                                        <div className="text-[14px]">{data?.capacity} People</div>
                                     </div>
                                     <div className="flex gap-x-2 items-center leading-[150%] text-[14px]">
                                         <img src='https://cdn.prod.website-files.com/660feff9e6770765774f4a4f/665d8362f53f09871d3569a0_ic-sq.svg' />
-                                        <div className="text-[14px]">1 Bed</div>
+                                        <div className="text-[14px]">{data?.bed} Bed</div>
                                     </div>
                                     <div className="flex gap-x-2 items-center leading-[150%] text-[14px]">
                                         <img src='https://cdn.prod.website-files.com/660feff9e6770765774f4a4f/665d8362f53f09871d3569a0_ic-sq.svg' />
@@ -122,7 +178,7 @@ const RoomDetail = () => {
                             </div>
                             <div className="flex gap-x-[40px] text-[#000] border-y border-[rgba(0,0,0,0.1)] justify-between items-center my-[26px] py-[26px] ">
                                 <div>Per Night:</div>
-                                <div className="text-[20px] font-medium leading-[150%] max-sm:text-[18px]">$&nbsp;170.00&nbsp;USD</div>
+                                <div className="text-[20px] font-medium leading-[150%] max-sm:text-[18px]">$&nbsp;{data?.price}&nbsp;USD</div>
                             </div>
                             <div>
                                 <h5 className="mb-[26px] text-[#000] text-[18px] font-bold leading-[150%]">Extra Services</h5>
@@ -148,7 +204,12 @@ const RoomDetail = () => {
                         </div>
                         <div>
                             <form className="flex flex-col mb-0 group" >
-                                <input value='Book Room' data-loading-text='Book Room' className="bg-color-1 text-[#fff] rounded-[50px] py-[10px] px-[20px] text-[14px] leading-[120%] cursor-pointer no-underline group-hover:bg-[#000] duration-300" type='submit' />
+                                <button
+                                    onClick={handleAddToCart}
+                                    className="bg-color-1 text-[#fff] rounded-[50px] py-[10px] px-[20px] text-[14px] leading-[120%] cursor-pointer no-underline group-hover:bg-[#000] duration-300"
+                                >
+                                    Book Room
+                                </button>
                             </form>
                         </div>
                     </div>

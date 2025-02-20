@@ -5,9 +5,38 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 
+
 const Question = () => {
+
+    const array = [
+        {
+            question: "Can I use multiple payment methods for my reservation?",
+            answer: "Cras iaculis ac amet neque sed consequat mauris. Diam arcu velit lacus venenatis mattis sit lacus. Feugiat velit facilisis ut eu id eu nibh tortor viverra volutpat iaculis ut venenatis sit."
+        },
+        {
+            question: "How far in advance should I book my stay with Cruise?",
+            answer: "Non placerat ut sed sociis eget pharetra vel sit faucibus ullamcorper neque vel rhoncus diam amet metus convallis ullamcorper sit proin mauris nam facilisis in."
+        },
+        {
+            question: "What types of accommodations does Cruise offer?",
+            answer: "Accumsan accumsan id ornare congue nec adipiscing amet. Rhoncus odio eget sed eu habitant justo consectetur ullamcorper tincidunt sapien facilisi orci libero."
+        },
+        {
+            question: "Can I request specific amenities or room preferences?",
+            answer: "Quis habitasse pellentesque sem feugiat scelerisque egestas tincidunt. Tellus nunc nisi velit in ullamcorper. Diam velit pharetra consectetur ut vel pharetra enim."
+        },
+        {
+            question: "Are there any special offers or discounts available?",
+            answer: "Nulla orci leo volutpat facilisis morbi. In enim vivamus enim dui hac scelerisque vestibulum Mattis sed suscipit nulla arcu wgestas at sed nunc pretium vitae viverra."
+        },
+        {
+            question: "Can I book multiple rooms or accommodations for a group?",
+            answer: "Porta cras tellus id placerat amet. Neque nulla aliquam sollicitudin augue egestas habitasse eget eget vestibulum. Fermentum pretium nulla tortor duis egestas erat vitae faucibus nisl."
+        },
+    ];
+
     return (
-        <div className="mt-[150px] container-xl">
+        <div className="mt-[150px] container-xl max-xs:mt-[50px]">
             <div className="sub-heading flex justify-between items-end gap-[60px] mb-5">
                 <div>
                     <div className="flex items-center gap-[6px] text-[#f64f02] uppercase mb-2 text-sm leading-[1.2]">
@@ -23,43 +52,17 @@ const Question = () => {
                 </div>
                 <div className="max-w-[60%] w-full max-lg:max-w-[100%]">
                     <Accordion type="single" collapsible className="w-full">
-                        <AccordionItem value="item-1">
-                            <AccordionTrigger className="text-[18px] text-[#000000]">Can I use multiple payment methods for my reservation?</AccordionTrigger>
-                            <AccordionContent>
-                                Cras iaculis ac amet neque sed consequat mauris. Diam arcu velit lacus venenatis mattis sit lacus. Feugiat velit facilisis ut eu id eu nibh tortor viverra volutpat iaculis ut venenatis sit.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-2">
-                            <AccordionTrigger className="text-[18px] text-[#000000]">How far in advance should I book my stay with Cruise?</AccordionTrigger>
-                            <AccordionContent>
-                                Non placerat ut sed sociis eget pharetra vel sit faucibus ullamcorper neque vel rhoncus diam amet metus convallis ullamcorper sit proin mauris nam facilisis in.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-3">
-                            <AccordionTrigger className="text-[18px] text-[#000000]">What types of accommodations does Cruise offer?</AccordionTrigger>
-                            <AccordionContent>
-                                Accumsan accumsan id ornare congue nec adipiscing amet. Rhoncus odio eget sed eu habitant justo consectetur ullamcorper tincidunt sapien facilisi orci libero.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-4">
-                            <AccordionTrigger className="text-[18px] text-[#000000]">Can I request specific amenities or room preferences?</AccordionTrigger>
-                            <AccordionContent>
-                                Quis habitasse pellentesque sem feugiat scelerisque egestas tincidunt. Tellus nunc nisi velit in ullamcorper. Diam velit pharetra consectetur ut vel pharetra enim.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-5">
-                            <AccordionTrigger className="text-[18px] text-[#000000]">Are there any special offers or discounts available?</AccordionTrigger>
-                            <AccordionContent>
-                                Nulla orci leo volutpat facilisis morbi. In enim vivamus enim dui hac scelerisque vestibulum Mattis sed suscipit nulla arcu wgestas at sed nunc pretium vitae viverra.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-6">
-                            <AccordionTrigger className="text-[18px] text-[#000000]">Can I book multiple rooms or accommodations for a group?</AccordionTrigger>
-                            <AccordionContent>
+                        {array.map((item, index) => {
+                            return (
+                                <AccordionItem key={index} value={`item-${index + 1}`}>
+                                    <AccordionTrigger className="text-[18px] text-[#000000]">{item.question}</AccordionTrigger>
+                                    <AccordionContent>
+                                        {item.answer}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            )
+                        })}
 
-                                Porta cras tellus id placerat amet. Neque nulla aliquam sollicitudin augue egestas habitasse eget eget vestibulum. Fermentum pretium nulla tortor duis egestas erat vitae faucibus nisl.
-                            </AccordionContent>
-                        </AccordionItem>
                     </Accordion>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 const TermCondition = () => {
   return (
-    <div className="container-xl mb-[150px]">
+    <div className="container-xl mb-[150px] max-xs:mb-[50px]">
       <div className="py-[40px]">
         <h1 className="text-[#000000] text-[44px] mt-0 font-normal leading-[120%]">Terms & Conditions</h1>
       </div>

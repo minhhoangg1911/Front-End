@@ -1,7 +1,7 @@
 
 const Blog = () => {
     return (
-        <section className='mt-[150px]'>
+        <section className='mt-[150px] max-xs:mt-[50px]'>
             <div className="container-xl">
                 <div className="flex gap-[60px] justify-between items-end mb-[20px]">
                     <div>

@@ -1,23 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Carousel, CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
-import { useEffect, useState } from "react"
-
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 const Review = () => {
 
-    const [api, setApi] = useState<CarouselApi | undefined>(undefined)
-    const [current, setCurrent] = useState(0)
-    const [count, setCount] = useState(0)
 
-    useEffect(() => {
-        if (!api) return
-
-        setCount(api.scrollSnapList().length)
-        setCurrent(api.selectedScrollSnap() + 1)
-
-        api.on("select", () => {
-            setCurrent(api.selectedScrollSnap() + 1)
-        })
-    }, [api])
 
     const reviews = [
         {
@@ -32,8 +16,6 @@ const Review = () => {
             name: "Jane Smith",
             location: "California, US",
         },
-
-
 
         {
             text: "Porttitor nec ante rhoncus sed sed pharetra. Tellus natoque ac eget pretium. Accumsan in orci ultricies amet duis vel. Diam ac amet cursus proin id pellentesque enim pellentesque. Ac eleifend orci quisque donec suspendisse adipiscing sed consequat. Arcu lectus viverra varius ac convallis tristique.",
@@ -57,7 +39,7 @@ const Review = () => {
 
 
     return (
-        <section className="mt-[150px]">
+        <section className="mt-[150px] max-xs:mt-[50px]">
             <div className="container-xl">
                 <div className="flex gap-[60px] justify-between items-end mb-[20px]">
                     <div>
@@ -83,8 +65,7 @@ const Review = () => {
                     </div>
                     <div className="">
                         <div className="">
-
-                            <Carousel setApi={setApi} className="">
+                            <Carousel className="">
                                 <CarouselContent>
                                     {reviews.map((review, index) => (
                                         <CarouselItem key={index}>
@@ -109,8 +90,8 @@ const Review = () => {
                                         </CarouselItem>
                                     ))}
                                 </CarouselContent>
-                                <CarouselPrevious className="bg-[#fffdf5] border border-black/20 rounded-full justify-center items-center w-[42px] h-[42px] transition-colors duration-300 flex absolute top-[400px] left-[650px] max-lg:left-[80%] max-sm:top-[450px] max-sm:left-[75%]" />
-                                <CarouselNext className="bg-[#fffdf5] border border-black/20 rounded-full justify-center items-center w-[42px] h-[42px] transition-colors duration-300 flex absolute  right-[420px] top-[400px] max-lg:right-[5%] max-sm:top-[450px]" />
+                                <CarouselPrevious className="bg-[#fffdf5] border border-black/20 rounded-full justify-center items-center w-[42px] h-[42px] transition-colors duration-300 flex absolute top-[400px] left-[650px] max-lg:left-[80%]  max-sm:top-[450px] max-sm:left-[75%] max-xs:top-[550px] max-xs:left-[70%] " />
+                                <CarouselNext className="bg-[#fffdf5] border border-black/20 rounded-full justify-center items-center w-[42px] h-[42px] transition-colors duration-300 flex absolute  right-[420px] top-[400px] max-lg:right-[5%] max-sm:top-[450px] max-xs:top-[550px]" />
                             </Carousel>
 
                         </div>

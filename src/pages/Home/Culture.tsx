@@ -1,7 +1,7 @@
 import './style.css'
 const Culture = () => {
     return (
-        <section className='culture mb-[150px]'>
+        <section className='culture mb-[150px] max-xs:mb-[50px]'>
             <div className="container-xl">
                 <div className='culture-wrap grid grid-cols-3 auto-rows-auto gap-x-[60px] max-lg:grid-cols-2 max-sm:flex max-sm:grid-cols-1 max-sm:flex-col-reverse '>
                     <div className='flex flex-col justify-between gap-20 '>

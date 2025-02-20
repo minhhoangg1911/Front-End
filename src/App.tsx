@@ -1,5 +1,5 @@
-import Layout from "./components/design/Layout/Layout"
-import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
+import Layout from "./components/Layout/Layout"
+import { BrowserRouter as Router, Route, Routes, Navigate, } from 'react-router-dom';
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Room from "./pages/Rooms/Room";
@@ -18,8 +18,26 @@ import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermCondition from "./pages/TermCondition/TermCondition";
 import Changelog from "./pages/Changelog/Changelog";
 import License from "./pages/License/License";
-function App() {
+import UserInfo from "./pages/UserInfo/UserInfo";
+import Payment from "./pages/Payment/Payment";
 
+import { useShoppingCartQuery } from "./utils/api/query/useShoppingCart";
+import { useShoppingCartStore } from "./store";
+import { useEffect } from "react";
+import Checkout from "./components/shared/Header/Checkout";
+
+function App() {
+  const setShoppingCart = useShoppingCartStore((state) => state.setShoppingCart);
+  const userString = localStorage.getItem('user') ?? '{}'; // Gán giá trị mặc định nếu null
+  const user = JSON.parse(userString);
+  const { data } = useShoppingCartQuery(user?.userId)
+  useEffect(() => {
+    if (data) {
+      // Khi dữ liệu giỏ hàng được tải thành công, cập nhật vào zustand store
+      setShoppingCart(data?.cartItems);
+    }
+  }, [data]);
+  console.log
   return (
     <>
       <Router>
@@ -35,21 +53,21 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
-
+            <Route path="/user-info" element={user ? <UserInfo /> : <Navigate to='/login' />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-conditions" element={<TermCondition />} />
             <Route path="/changelog" element={<Changelog />} />
             <Route path="/license" element={<License />} />
-
-
-
-
-            <Route path="/room-detail" element={<RoomDetail />} />
-
-
+            <Route path="/room-detail/:id" element={<RoomDetail />} />
             <Route path='/prev-room' element={<PrevRoom />} />
             <Route path='/prev-blog' element={<PrevBlog />} />
             <Route path='/prev-review' element={<PrevReview />} />
+            <Route path='/payment' element={<Payment />} />
+
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/success" element={<h1>Thanh toán thành công!</h1>} />
+            <Route path="/cancel" element={<h1>Thanh toán bị hủy!</h1>} />
+
 
           </Routes>
         </Layout>

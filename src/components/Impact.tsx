@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { CarouselApi } from "./ui/carousel";
-import { Button } from "./ui/button";
+// import { CarouselApi } from "./ui/carousel";
+// import { Button } from "./ui/button";
 
 
 
 
 const Impact = () => {
-    const [api, setApi] = useState<CarouselApi | undefined>(undefined)
+    // const [api, setApi] = useState<CarouselApi | undefined>(undefined)
     const [currentIndex, setCurrentIndex] = useState(0);
     const handleNext = () => {
         setCurrentIndex((prevIndex) =>
@@ -41,7 +41,7 @@ const Impact = () => {
 
 
     return (
-        <div className="container-xl mt-[150px]">
+        <div className="container-xl mt-[150px] max-xs:mt-[50px]">
             <div>
                 <div className="sub-heading flex justify-between items-end gap-[60px] mb-5">
                     <div>

@@ -1,7 +1,7 @@
 
 const Service = () => {
     return (
-        <section className="mt-[150px]">
+        <section className="mt-[150px] max-xs:mt-[50px]">
             <div className="container-xl flex border border-[rgba(0,0,0,0.1)] rounded-[10px] overflow-hidden max-lg:flex-col px-0">
                 <div>
                     <img className="h-full max-lg:rounded-[10px] max-lg:w-full max-lg:min-h-[600px] max-lg:max-h-[600px] " src='https://cdn.prod.website-files.com/660feff9e6770765774f4a4f/665da92a0a86e0c5b9c4b9cc_service-p-800.jpg' alt='' />

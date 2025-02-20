@@ -1,14 +1,61 @@
 {
-  "posts": [
+  "rooms": [
     {
-      "id": "1",
-      "title": "a title",
-      "views": 100
+      "ID": 1,
+      "RoomName": "Conference Room A",
+      "Image": "https://cdn.prod.website-files.com/665ad48cef8cc551376f7777/665d6e20c8d590035eff1b4b_room-main-01.jpg",
+      "Capacity": 1,
+      "Bed": 1,
+      "Price": 143.00,
+      "AreaSqFt": 400
     },
     {
-      "id": "2",
-      "title": "another title",
-      "views": 200
+      "ID": 2,
+      "RoomName": "Seminar Room B",
+      "Image": "https://cdn.prod.website-files.com/665ad48cef8cc551376f7777/665d6e7884663fc4c1909150_room-main-02.jpg",
+      "Capacity": 2,
+      "Bed": 2,
+      "AreaSqFt": 300
+    },
+    {
+      "ID": 3,
+      "RoomName": "Team Workspace C",
+      "Image": "https://cdn.prod.website-files.com/665ad48cef8cc551376f7777/665d6ec5d1781928882d024e_room-main-03.jpg",
+      "Capacity": 3,
+      "Bed": 1,
+      "AreaSqFt": 150
+    },
+    {
+      "ID": 4,
+      "RoomName": "Small Meeting Room D",
+      "Image": "https://cdn.prod.website-files.com/665ad48cef8cc551376f7777/665d6f08a0e22ec5b6c33019_room-main-04.jpg",
+      "Capacity": 4,
+      "Bed": 3,
+      "AreaSqFt": 100
+    },
+    {
+      "ID": 5,
+      "RoomName": "VIP Banquet Hall E",
+      "Image": "https://cdn.prod.website-files.com/665ad48cef8cc551376f7777/665d6f494fa4858df4849742_room-main-05.jpg",
+      "Capacity": 6,
+      "Bed": 2,
+      "AreaSqFt": 800
+    },
+    {
+      "ID": 6,
+      "RoomName": "VIP Banquet Hall F",
+      "Image": "https://cdn.prod.website-files.com/665ad48cef8cc551376f7777/665d6f801f8b12758a5689ae_room-main-06.jpg",
+      "Capacity": 4,
+      "Bed": 1,
+      "AreaSqFt": 600
+    },
+    {
+      "ID": 7,
+      "RoomName": "VIP Banquet Hall G",
+      "Image": "https://cdn.prod.website-files.com/665ad48cef8cc551376f7777/665d6fd0de872e08e46be2a9_room-main-07.jpg",
+      "Capacity": 2,
+      "Bed": 1,
+      "AreaSqFt": 400
     }
   ],
   "comments": [
